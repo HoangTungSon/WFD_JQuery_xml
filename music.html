@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery.parseXML demo</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+<script>
+    // var text = "<tracklist>\n" +
+    //     "    <type>song</type>\n" +
+    //     "    <track>\n" +
+    //     "    <title>\n" +
+    //     "        <![CDATA[COOLIEEU]>\n" +
+    //     "    </title>\n" +
+    //     "    <time>\n" +
+    //     "        <![CDATA[0:00]>\n" +
+    //     "    </time>\n" +
+    //     "    <creator>\n" +
+    //     "        <![CDATA[Bích Tuyết, D.Blue, NamLee]>\n" +
+    //     "    </creator>\n" +
+    //     "    <location>\n" +
+    //     "        <![CDATA[https://aredir.nixcdn.com/NhacCuaTui990/CoLieu-BichTuyetDBlueNamLee-6098560.mp3?st=XrM5_kShoBlt4IdbztgQdg&e=1571460272]>\n" +
+    //     "    </location>\n" +
+    //     "    <locationHQ>\n" +
+    //     "        <![CDATA[]>\n" +
+    //     "    </locationHQ>\n" +
+    //     "    <hasHQ>\n" +
+    //     "        <![CDATA[true]>\n" +
+    //     "    </hasHQ>\n" +
+    //     "    <info>\n" +
+    //     "        <![CDATA[https://www.nhaccuatui.com/bai-hat/coolieeu-bich-tuyet-ft-dblue-ft-namlee.kpYyo16MVR7h.html]>\n" +
+    //     "    </info>\n" +
+    //     "    <lyric><![CDATA[https://lrc-nct.nixcdn.com/2019/09/30/6/9/2/f/1569814082711.lrc]></lyric>\n" +
+    //     "    <bgimage><![CDATA[https://avatar-nct.nixcdn.com/singer/avatar/2019/08/30/d/5/9/d/1567134017218_600.jpg]></bgimage>\n" +
+    //     "    <avatar><![CDATA[https://avatar-nct.nixcdn.com/song/2019/09/29/b/f/9/2/1569728885513.jpg]></avatar>\n" +
+    //     "    <coverimage><![CDATA[https://avatar-nct.nixcdn.com/song/2019/09/29/b/f/9/2/1569728885513_500.jpg]></coverimage>\n" +
+    //     "    <newtab><![CDATA[https://www.nhaccuatui.com/tim-kiem?q=B%C3%ADch+Tuy%E1%BA%BFt&b=singer]></newtab>\n" +
+    //     "    <kbit><![CDATA[320]></kbit>\n" +
+    //     "    <key><![CDATA[kpYyo16MVR7h]></key>\n" +
+    //     "    <seeking><![CDATA[]></seeking>\n" +
+    //     "    <isStream><![CDATA[]></isStream>\n" +
+    //     "    </track>\n" +
+    //     "</tracklist>";
+
+    text = "<bookstore><book>" +
+        "<title>Everyday Italian</title>" +
+        "<author>Giada De Laurentiis</author>" +
+        "<year>2005</year>" +
+        "</book></bookstore>";
+
+    // xmlDoc = $.parseXML(xml);
+    // $xml = $("xmlDoc");
+    // $title = $xml.find("type");
+    //
+    // // Append "RSS Title" to #someElement
+    // $("#someElement").append($title.text());
+    var parser, xmlDoc;
+
+    parser = new DOMParser();
+    xmlDoc = parser.parseFromString(text, "text/xml");
+
+    document.getElementById("demo").innerHTML =
+        xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+
+</script>
+
+<p id="someElement"></p>
+<p id="anotherElement"></p>
+<p id="demo"></p>
+
+
+</body>
+</html>

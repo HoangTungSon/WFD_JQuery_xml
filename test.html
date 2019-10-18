@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jQuery.parseXML demo</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+
+<p id="someElement"></p>
+<p id="anotherElement"></p>
+
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "https://www.nhaccuatui.com/flash/xml?html5=true&key1=a4ba2de4a918a77478cbdb94b3e4b3cf",
+            //contentType: "text/xml",
+            dataType: "xml",
+            success: parseXML(),
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    });
+
+    function parseXML (xml) {
+        xmlDoc = $.parseXML(xml);
+        let $xml = $(xmlDoc);
+        let $title = $xml.find("title");
+        // Append "RSS Title" to #someElement
+        $("#someElement").append($title.text());
+
+        // Change the title to "XML Title"
+        $title.text("XML Title");
+
+        // Append "XML Title" to #anotherElement
+        $("#anotherElement").append($title.text());
+    }
+
+</script>
+
+
+</body>
+</html>
