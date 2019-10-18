@@ -1,45 +1,43 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>jQuery.parseXML demo</title>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <title>Demo Bootstrap</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+
 </head>
 <body>
 
-<p id="someElement"></p>
-<p id="anotherElement"></p>
+<div class="search">
+    Search bar: <input type="text" class="search_bar" onkeypress="filterRepoByName(value)"/>
+</div>
+
+<ul id="list">
+
+</ul>
 
 <script>
 
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: "https://www.nhaccuatui.com/flash/xml?html5=true&key1=a4ba2de4a918a77478cbdb94b3e4b3cf",
-            //contentType: "text/xml",
-            dataType: "xml",
-            success: parseXML(),
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown);
-            }
-        });
-    });
+    function filterRepoByName(name) {
+        $.ajax("https://api.github.com/search/repositories?q=HoangTungSon/" + name)
+            .done(function (result) {
+                getRepo(result)
+            })
+    }
 
-    function parseXML (xml) {
-        xmlDoc = $.parseXML(xml);
-        let $xml = $(xmlDoc);
-        let $title = $xml.find("title");
-        // Append "RSS Title" to #someElement
-        $("#someElement").append($title.text());
+    function getRepo(repoList) {
+        let ul = document.getElementById("list");
 
-        // Change the title to "XML Title"
-        $title.text("XML Title");
+        for(let i = 0; i < repoList.items.length; i ++ ) {
+            let li = document.createElement("li");
+            li.innerText = repoList.items[i].name;
 
-        // Append "XML Title" to #anotherElement
-        $("#anotherElement").append($title.text());
+            ul.appendChild(li);
+        }
     }
 
 </script>
-
 
 </body>
 </html>
